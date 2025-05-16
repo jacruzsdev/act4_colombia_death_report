@@ -10,9 +10,8 @@ COPY requirements.txt .
 # Install the dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the application code
-COPY app /app/app
-COPY assets /app/assets
+# Copy the application code and assets
+COPY . /app
 
 # Expose the port that Gunicorn will listen on
 EXPOSE 8080
