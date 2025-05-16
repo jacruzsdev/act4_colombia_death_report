@@ -6,8 +6,8 @@ from dash.dependencies import Input, Output
 import pandas as pd
 import dash_bootstrap_components as dbc  # Import Dash Bootstrap Components
 
-from bq_data import get_data
-from reports import views
+from .bq_data import get_data
+from .reports import views
 
 
 def create_dash_app() -> dash.Dash:
@@ -23,7 +23,7 @@ def create_dash_app() -> dash.Dash:
     app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])  # Use Bootstrap stylesheet
     app.config.suppress_callback_exceptions = True #suppress callback exceptions
 
-    logo_uni = '/assets/logo.png'  # Correct relative path for Dash
+    logo_uni = '/app/assets/logo.png'  # Correct relative path for Dash
     # Define the app layout with multiple pages
     app.layout = html.Div([
         # Add a logo to the upper right corner
@@ -63,13 +63,5 @@ def create_dash_app() -> dash.Dash:
     return app
 
 
-def main():
-    """
-    Main function to run the Dash application.
-    """
-    app = create_dash_app()
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
-
-
-if __name__ == '__main__':
-    main()
+app = create_dash_app()
+server = app.server

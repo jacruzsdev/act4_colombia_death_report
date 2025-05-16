@@ -2,16 +2,19 @@ FROM python:3.11-slim-buster
 LABEL authors="jcruz47 & jbarrera17"
 
 # Set the working directory in the container
-WORKDIR /app/app
+WORKDIR /app
 
 # Copy the requirements file
 COPY requirements.txt .
 
 # Install the dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 
-# Copy the application code and assets
+# Copy the application code
 COPY . /app
+
+# Switch to the application directory.
+WORKDIR /app/app
 
 # Expose the port that Gunicorn will listen on
 EXPOSE 8080
