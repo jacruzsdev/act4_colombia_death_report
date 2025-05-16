@@ -13,11 +13,8 @@ RUN pip install -r requirements.txt
 # Copy the application code
 COPY . /app
 
-# Switch to the application directory.
-WORKDIR /app/app
-
 # Expose the port that Gunicorn will listen on
 EXPOSE 8080
 
 # Set the command to run the application using Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:8080", "main:server", "--workers", "2", "--timeout", "300"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "app.main:server", "--workers", "2", "--timeout", "300"]
