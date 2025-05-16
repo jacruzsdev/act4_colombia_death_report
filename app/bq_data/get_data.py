@@ -1,3 +1,5 @@
+import logging
+
 from google.cloud import bigquery
 import pandas as pd
 
@@ -23,18 +25,18 @@ def run_bigquery_query(query: str) -> pd.DataFrame:
         # Get the results as a Pandas DataFrame.
         df = query_job.to_dataframe()
 
-        # Print the first few rows of the DataFrame to confirm.
-        print("Query results:")
-        print(df.head())
+        # logging.info the first few rows of the DataFrame to confirm.
+        logging.info("Query results:")
+        logging.info(df.head())
 
-        # Print the column names and their data types.
-        print("\nDataFrame structure:")
-        print(df.info())
+        # logging.info the column names and their data types.
+        logging.info("\nDataFrame structure:")
+        logging.info(df.info())
 
         return df
 
     except Exception as e:
-        print(f"An error occurred: {e}")
+        logging.error(f"An error occurred: {e}")
         return pd.DataFrame()  # Return an empty DataFrame on error
 
 
@@ -70,6 +72,7 @@ def get_report_2() -> pd.DataFrame:
         count(muertes.COD_MUERTE) n_muertes
     FROM `trusty-equinox-459916-c5.Act3_data.anexo1_no_fetal` muertes
     GROUP BY 1
+    ORDER BY 1 ASC
     """
     return run_bigquery_query(query)
 
@@ -153,6 +156,7 @@ def get_report_6() -> pd.DataFrame:
         count(muertes.COD_MUERTE) n_muertes
     FROM `trusty-equinox-459916-c5.Act3_data.anexo1_no_fetal` muertes
     GROUP BY 1
+    ORDER BY 1 ASC
     """
     return run_bigquery_query(query)
 
@@ -171,5 +175,6 @@ def get_report_7() -> pd.DataFrame:
     FROM `trusty-equinox-459916-c5.Act3_data.anexo1_no_fetal` muertes
     INNER JOIN `trusty-equinox-459916-c5.Act3_data.anexo3_divi_pola` municipios ON muertes.COD_DEPARTAMENTO = municipios.COD_DEPARTAMENTO
     GROUP BY 1,2
+    ORDER BY 1 ASC
     """
     return run_bigquery_query(query)
