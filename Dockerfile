@@ -2,7 +2,7 @@ FROM python:3.11-slim-buster
 LABEL authors="jcruz47 & jbarrera17"
 
 # Set the working directory in the container
-WORKDIR /app
+WORKDIR /app/app
 
 # Copy the requirements file
 COPY requirements.txt .
