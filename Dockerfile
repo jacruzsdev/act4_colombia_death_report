@@ -17,4 +17,4 @@ COPY . /app
 EXPOSE 8080
 
 # Set the command to run the application using Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:8080", "app.main:server", "--workers", "2", "--timeout", "300"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "main:server", "--workers", "2", "--timeout", "300"]
