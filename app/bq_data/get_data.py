@@ -151,12 +151,21 @@ def get_report_6() -> pd.DataFrame:
     :return: a Dataframe with the result
     """
     query = """
+    WITH BASE_QUERY AS (
     SELECT
         muertes.GRUPO_EDAD1,
-        count(muertes.COD_MUERTE) n_muertes
+        edades.Descripcion_EDAD2 as Grupo_Edad,
+    count(muertes.COD_MUERTE) n_muertes
     FROM `trusty-equinox-459916-c5.Act3_data.anexo1_no_fetal` muertes
-    GROUP BY 1
+    INNER JOIN `trusty-equinox-459916-c5.Act3_data.anexo5_rango_edades` edades ON muertes.GRUPO_EDAD1 = edades.GRUPO_EDAD1
+    GROUP BY 1, 2
     ORDER BY 1 ASC
+    )
+    SELECT
+        Grupo_Edad,
+        SUM(n_muertes) AS n_muertes
+    FROM BASE_QUERY
+    GROUP BY 1
     """
     return run_bigquery_query(query)
 
