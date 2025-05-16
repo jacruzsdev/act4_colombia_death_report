@@ -210,31 +210,21 @@ def create_histogram(df: pd.DataFrame) -> html.Div:
 
 def create_stacked_bar_chart(df: pd.DataFrame) -> html.Div:
     """
-    Creates a stacked bar chart comparing deaths by sex and department with a horizontal slicer.
+    Creates a stacked bar chart comparing deaths by sex and department.
 
     Args:
-        df (pd.DataFrame): DataFrame containing the death data with 'DEPARTAMENTO', 'n_muertes', and 'SEXO' columns.
+        df (pd.DataFrame): DataFrame containing the death data.
 
     Returns:
-        html.Div: A div containing the Plotly stacked bar chart and a range slider.
+        html.Div: A div containing the Plotly stacked bar chart.
     """
-    departments = df['DEPARTAMENTO'].unique()
+    df['SEXO'] = df['SEXO'].astype('category')
     fig = px.bar(df, x='DEPARTAMENTO', y='n_muertes', color='SEXO',
-                 title='Comparación de Muertes por Sexo y Departamento')
-    stacked_bar_chart = dcc.Graph(id='stacked-bar-chart', figure=fig)
-
-    range_slider = dcc.RangeSlider(
-        id='department-range-slider',
-        min=0,
-        max=len(departments) - 1,
-        step=1,
-        value=[0, min(10, len(departments) - 1)],  # Initial range to display
-        marks={i: dept for i, dept in enumerate(departments[::max(1, len(departments) // 10)])}, # Add some marks for better understanding
-    )
-
+                 title='Comparación de Muertes por Sexo y Departamento',
+                 log_y=True)
+    stacked_bar_chart = dcc.Graph(figure=fig, style={'width': '120%', 'height': '600px'}) # Adjust width as needed
     return html.Div([
-                stacked_bar_chart,
-                range_slider,
+                html.Div(stacked_bar_chart, style={'overflowX': 'auto'}), # Make the container horizontally scrollable
                 html.Div([
                     dbc.Button('Ir a Inicio', href='/', className='w-100 my-2'),
                     dbc.Button('Ver Mapa de distribución total de muertes por departamento en Colombia', href='/mapa', className='w-100 my-2'),
