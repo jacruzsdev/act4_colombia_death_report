@@ -192,7 +192,7 @@ def create_histogram(df: pd.DataFrame) -> html.Div:
     Returns:
         dcc.Graph: The Plotly histogram.
     """
-    fig = px.bar(df, x='GRUPO_EDAD1', y='n_muertes', title='Distribución de Muertes por Rangos de Edad')
+    fig = px.bar(df, x='Grupo_Edad', y='n_muertes', title='Distribución de Muertes por Rangos de Edad')
     histogram = dcc.Graph(figure=fig)
     return html.Div([
         histogram,
@@ -210,19 +210,31 @@ def create_histogram(df: pd.DataFrame) -> html.Div:
 
 def create_stacked_bar_chart(df: pd.DataFrame) -> html.Div:
     """
-    Creates a stacked bar chart comparing deaths by sex and department.
+    Creates a stacked bar chart comparing deaths by sex and department with a horizontal slicer.
 
     Args:
-        df (pd.DataFrame): DataFrame containing the death data.
+        df (pd.DataFrame): DataFrame containing the death data with 'DEPARTAMENTO', 'n_muertes', and 'SEXO' columns.
 
     Returns:
-        dcc.Graph: The Plotly stacked bar chart.
+        html.Div: A div containing the Plotly stacked bar chart and a range slider.
     """
+    departments = df['DEPARTAMENTO'].unique()
     fig = px.bar(df, x='DEPARTAMENTO', y='n_muertes', color='SEXO',
                  title='Comparación de Muertes por Sexo y Departamento')
-    stacked_bar_chart = dcc.Graph(figure=fig)
+    stacked_bar_chart = dcc.Graph(id='stacked-bar-chart', figure=fig)
+
+    range_slider = dcc.RangeSlider(
+        id='department-range-slider',
+        min=0,
+        max=len(departments) - 1,
+        step=1,
+        value=[0, min(10, len(departments) - 1)],  # Initial range to display
+        marks={i: dept for i, dept in enumerate(departments[::max(1, len(departments) // 10)])}, # Add some marks for better understanding
+    )
+
     return html.Div([
                 stacked_bar_chart,
+                range_slider,
                 html.Div([
                     dbc.Button('Ir a Inicio', href='/', className='w-100 my-2'),
                     dbc.Button('Ver Mapa de distribución total de muertes por departamento en Colombia', href='/mapa', className='w-100 my-2'),
