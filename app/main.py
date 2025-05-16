@@ -1,3 +1,5 @@
+import os
+
 import dash
 from dash import html, dcc  # Corrected import for html and dcc
 from dash.dependencies import Input, Output
@@ -66,7 +68,7 @@ def main():
     Main function to run the Dash application.
     """
     app = create_dash_app()
-    app.run(debug=True) # Changed app.run_server to app.run
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
 
 
 if __name__ == '__main__':
