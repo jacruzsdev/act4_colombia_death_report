@@ -52,4 +52,5 @@ En las siguientes secciones de esta documentación, se detallarán aspectos espe
 * ### [Arquitectura de la aplicación](docs/arquitectura.md)
 * ### [Despliegue de la aplicación](docs/despliegue.md)
 * ### [Descripción de las fuentes de datos](docs/fuente_datos.md)
+* ### [Análisis de datos](docs/analisis_datos.md)
 * ### [Conclusiones](docs/conclusiones.md)
