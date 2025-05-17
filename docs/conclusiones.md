@@ -1,0 +1,8 @@
+# Conclusiones
+
+En este proyecto, se han obtenido las siguientes conclusiones principales:
+
+* **Idoneidad de Dash para Reportes Sencillos:** Dash se presenta como una herramienta adecuada para el despliegue de reportes sencillos y de tamaño reducido en la nube. Sin embargo, se considera que no es un reemplazo completo para las herramientas de Business Intelligence (BI) dedicadas, especialmente en escenarios que requieren analítica avanzada y funcionalidades más complejas.
+* **Ventajas de los Servicios en la Nube:** La correcta administración de los servicios en la nube (en este caso, Google Cloud) garantiza un alto nivel de seguridad, confiabilidad y administración integral de los servicios. Esto asegura la alta disponibilidad de la aplicación y reduce la carga operativa del equipo de desarrollo.
+* **Importancia del Procesamiento de Datos Dedicado:** Se destaca la importancia de no procesar datos directamente en el backend que soporta el servicio web. Para evitar esto, se implementó el uso de Google BigQuery como Data Warehouse, permitiendo que los datos se preparen y transformen previamente, y se entreguen listos para ser visualizados por la librería Plotly. Esto mejora el rendimiento de la aplicación y la escalabilidad de la solución.
+* **Beneficios de CI/CD:** Los procesos de Integración Continua y Entrega Continua (CI/CD) implementados con Google Cloud Build y GitHub demuestran su eficacia para garantizar que el código que ha sido aprobado para pasar a producción se despliegue de manera automática. Esto agiliza el proceso de entrega de software, reduce el riesgo de errores humanos y mejora la eficiencia del ciclo de vida del desarrollo.
