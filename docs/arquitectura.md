@@ -1,5 +1,9 @@
 # Arquitectura de la Aplicación Web de Análisis de Mortalidad No Fetal
 
+La arquitectura de referencia para la Aplicación es la siguiente:
+
+![Arquitectura de Referencia](arq_actividad4.drawio.png)
+
 ## 1. Acceso a la Aplicación
 
 Los usuarios pueden acceder al servicio web a través de la siguiente URL:
